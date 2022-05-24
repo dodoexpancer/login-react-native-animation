@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Welcome from '../pages/Welcome/index';
 import SingIn from '../pages/SingIn/index';
 import ListFlat from '../pages/List/index';
+import Register  from '../pages/Register/index';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,11 @@ export default function Routes(){
             <Stack.Screen
                name="ListFlat"
                component={ListFlat}
+               options={{headerShown: false}}
+            />
+            <Stack.Screen
+               name='Register'
+               component={Register}
                options={{headerShown: false}}
             />
         </Stack.Navigator>

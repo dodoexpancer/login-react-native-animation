@@ -1,4 +1,4 @@
-import React, { useState } from'react';
+import React, { useState } from 'react';
 import {View, Text,  StyleSheet, TextInput, TouchableOpacity, Alert, Modal, Pressable} from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import {useNavigation} from '@react-navigation/native'
@@ -15,13 +15,18 @@ export default function SingIn(){
             email: 'Evaristotrol@hotmail.com'
         }
              const openClose = () => {
-            if(usuario.email !== email || (usuario.senha !== senha)){
-                openCloseModal(true)
-            } else {
-                openCloseModal(false)
-                navigation.navigate('ListFlat')
-            }
-        
+                 if(email === '' || (senha === '')){
+                    openCloseModal(true)
+                 } else {
+                    if(usuario.email !== email || (usuario.senha !== senha)){
+                        openCloseModal(true)
+                    } else {
+                        openCloseModal(false)
+                        navigation.navigate('ListFlat')
+                    }
+                
+                 }
+     
         }
 
     return(
@@ -32,40 +37,41 @@ export default function SingIn(){
             <Animatable.View animation="fadeInUp" style={styles.containerForm}>
                 <Text style={styles.title}>Email</Text>
                 <TextInput 
-                value={email}
-                placeholder='Ensira um Email...'
-                style={styles.input}
-                onChangeText={setEmail}
+                      value={email}
+                      placeholder='Ensira um Email...'
+                      style={styles.input}
+                      onChangeText={setEmail}
                 />
                 <Text style={styles.title}>Senha</Text>
                 <TextInput 
-                value={senha}
-                onChangeText={setSenha}
-                placeholder='sua Senha...'
-                style={styles.input}
+                      value={senha}
+                      onChangeText={setSenha}
+                      placeholder='sua Senha...'
+                      style={styles.input}
                 />
                 <TouchableOpacity
-                style={styles.buttonAcesso}
-                onPress={openClose}
+                      style={styles.buttonAcesso}
+                      onPress={openClose}
                 >
                 <Text style={styles.buttonText}>Acessar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                style={styles.buttonRegister}>
+                       onPress={() =>  navigation.navigate('Register')}
+                       style={styles.buttonRegister}>
                 <Text style={styles.registerText}>Nâo possui uma conta? Cadastre-se</Text>
                 </TouchableOpacity>
                 <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={modal}
-                  onRequestClose={() => {
-                  Alert.alert("Modal has been closed.");
-                  openCloseModal(false);
+                       animationType="slide"
+                       transparent={true}
+                       visible={modal}
+                       onRequestClose={() => {
+                       Alert.alert("Modal has been closed.");
+                       openCloseModal(false);
         }}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Email e Senha incorretos</Text>
+            <Text style={styles.modalText}>Insira Email e Senha Validos</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => openCloseModal(!modal)}

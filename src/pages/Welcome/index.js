@@ -5,13 +5,11 @@ import {
     StyleSheet,
     TouchableOpacity
 } from 'react-native'
-
 import {useNavigation} from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
 
 export default function Welcome(){
 const navigation = useNavigation();
-
 
     return(
         <View style={Style.container}>
@@ -25,7 +23,7 @@ const navigation = useNavigation();
                 />
             </View>
             <Animatable.View delay={600} animation="fadeInUp" style={Style.conatinerForm}>
-                <Text style={Style.title}>Monitore, organize seus gastos, compromissos e rotina de qualqer lugar!</Text>
+                <Text style={Style.title}>Assista seus filmes de qualqer lugar!</Text>
                 <Text style={Style.text}>Faça o login para começar</Text>
                 <TouchableOpacity
                  style={Style.button}

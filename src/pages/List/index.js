@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import { SafeAreaView,  View, Text, StyleSheet, FlatList } from "react-native";
-import filmes from "../List/construtor"
 
 export default class ListFlat extends Component{
     constructor(props){
@@ -28,7 +27,6 @@ export default class ListFlat extends Component{
         return(
      <SafeAreaView style={style.container}>
         <FlatList
-        horizontal
         keyExtractor={(item) => item.id}
         data={this.state.filmes}
         renderItem={({item}) => 
