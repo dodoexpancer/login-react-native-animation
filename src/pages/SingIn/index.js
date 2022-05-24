@@ -1,8 +1,29 @@
-import React from'react';
-import {View, Text,  StyleSheet, TextInput, TouchableOpacity} from 'react-native'
+import React, { useState } from'react';
+import {View, Text,  StyleSheet, TextInput, TouchableOpacity, Alert, Modal, Pressable} from 'react-native'
 import * as Animatable from 'react-native-animatable'
+import {useNavigation} from '@react-navigation/native'
+
 
 export default function SingIn(){
+        const [modal, openCloseModal] = useState(false);
+        const [email, setEmail] = useState('');
+        const [senha, setSenha] = useState('');
+        const navigation = useNavigation();
+        
+        const usuario = {
+            senha: '12345',
+            email: 'Evaristotrol@hotmail.com'
+        }
+             const openClose = () => {
+            if(usuario.email !== email || (usuario.senha !== senha)){
+                openCloseModal(true)
+            } else {
+                openCloseModal(false)
+                navigation.navigate('ListFlat')
+            }
+        
+        }
+
     return(
         <View style={styles.container}>
             <Animatable.View animation='fadeInLeft' delay={500} style={styles.containerHeader}>
@@ -11,22 +32,49 @@ export default function SingIn(){
             <Animatable.View animation="fadeInUp" style={styles.containerForm}>
                 <Text style={styles.title}>Email</Text>
                 <TextInput 
+                value={email}
                 placeholder='Ensira um Email...'
                 style={styles.input}
+                onChangeText={setEmail}
                 />
                 <Text style={styles.title}>Senha</Text>
                 <TextInput 
+                value={senha}
+                onChangeText={setSenha}
                 placeholder='sua Senha...'
                 style={styles.input}
                 />
                 <TouchableOpacity
-                style={styles.button}>
+                style={styles.buttonAcesso}
+                onPress={openClose}
+                >
                 <Text style={styles.buttonText}>Acessar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                 style={styles.buttonRegister}>
                 <Text style={styles.registerText}>Nâo possui uma conta? Cadastre-se</Text>
                 </TouchableOpacity>
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={modal}
+                  onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                  openCloseModal(false);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Email e Senha incorretos</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => openCloseModal(!modal)}
+            >
+              <Text style={styles.textStyle}>Fechar</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
             </Animatable.View>
         </View>
     )
@@ -65,7 +113,7 @@ input:{
     marginBottom: 12,
     fontSize: 16,
 }, 
-button:{
+buttonAcesso:{
     backgroundColor: 'black',
    width: '100%',
    borderRadius: 4,
@@ -85,7 +133,49 @@ buttonRegister: {
 },
 registerText: {
     color: '#a1a1a1'
-}
+},
+centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "red",
+  },
+  buttonClose: {
+    backgroundColor: "black",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+    color: 'red'
+  }
 
 
 })
